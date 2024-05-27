@@ -5,9 +5,10 @@ import EpisodeCard from '../episode-card';
 import PaginationComponent from '../pagination';
 
 const MainScreen = () => {
+  const episodeApiUrl = '/episode/';
   return (
     <PaginationComponent
-      url={'/episode/'}
+      url={episodeApiUrl}
       renderItem={({item}) => <EpisodeCard item={item} />}
     />
   );

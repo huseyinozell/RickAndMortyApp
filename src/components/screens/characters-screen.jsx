@@ -1,9 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import PaginationComponent from '../pagination';
+import CharacterCard from '../character-card';
 
 const CharacterList = ({route}) => {
   const episodeData = route.params?.data;
+  const characterApiUrl = '/character/';
 
   const episodeInfo = () => {
     return (
@@ -25,8 +27,8 @@ const CharacterList = ({route}) => {
     <>
       {episodeInfo()}
       <PaginationComponent
-        url={'/character/'}
-        renderItem={({item}) => <Text>{item.name}</Text>}
+        url={characterApiUrl}
+        renderItem={({item}) => <CharacterCard character={item} />}
       />
     </>
   );
