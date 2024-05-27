@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   },
   pageNumber: {
     fontSize: 18,
+    color: 'black',
   },
   item: {
     padding: 20,

@@ -1,13 +1,19 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import CircleImage from './circle-image';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const CharacterCard = ({character}) => {
   const navigation = useNavigation();
+  const [favorite, setFavorite] = useState(false);
 
   const handleShowCharacters = () => {
     navigation.navigate('CharacterDetails', {data: character});
+  };
+
+  const toggleFavorite = () => {
+    setFavorite(!favorite);
   };
 
   return (
@@ -19,6 +25,15 @@ const CharacterCard = ({character}) => {
       <View style={styles.body}>
         <TouchableOpacity style={styles.button} onPress={handleShowCharacters}>
           <Text style={styles.buttonText}>Karakter Detaylarını Göster</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={toggleFavorite} style={styles.iconContainer}>
+          <Icon
+            name="star"
+            size={24}
+            color={favorite ? 'orange' : 'grey'}
+            style={styles.icon}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -46,10 +61,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'black',
   },
   subtitle: {
     fontSize: 16,
     color: '#666',
+    color: 'black',
   },
   body: {
     flexDirection: 'row',
@@ -70,6 +87,12 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
+  },
+  iconContainer: {
+    marginLeft: 10,
+  },
+  icon: {
+    // İkon stilleri buraya eklenebilir
   },
 });
 
