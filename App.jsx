@@ -6,6 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MainScreen from './src/components/screens/main-screen';
 import CharacterList from './src/components/screens/characters-screen';
+import CharacterDetails from './src/components/screens/character-details-screen';
 const Tab = createBottomTabNavigator();
 
 const screenOptionStyle = {
@@ -50,8 +51,13 @@ const App = () => {
         />
         <Stack.Screen
           name="EpisodeCharacterList"
-          options={{headerTitle: 'Karakter Listesi'}}
+          options={{headerTitle: 'Bölüm-Karakter Listesi'}}
           component={CharacterList}
+        />
+        <Stack.Screen
+          name="CharacterDetails"
+          options={{headerTitle: 'Karakter Detayları'}}
+          component={CharacterDetails}
         />
       </Stack.Navigator>
     </NavigationContainer>

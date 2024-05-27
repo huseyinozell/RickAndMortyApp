@@ -3,11 +3,10 @@ import axios from 'axios';
 const API_BASE_URL = 'https://rickandmortyapi.com/api';
 
 
-
-
 /**
- * You can fetch multiple episodes or single episode using one endpoint 
- * @param {*} episodeIds 
+ * 
+ * @param {*} idList 
+ * @param {*} url 
  * @returns 
  */
 export const fetchData = async (idList, url) => {

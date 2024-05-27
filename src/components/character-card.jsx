@@ -1,22 +1,24 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import CircleImage from './circle-image';
 
 const CharacterCard = ({character}) => {
   const navigation = useNavigation();
 
   const handleShowCharacters = () => {
-    navigation.navigate('EpisodeCharacterList', {data: item});
+    navigation.navigate('CharacterDetails', {data: character});
   };
 
   return (
     <View style={styles.card}>
+      <CircleImage url={character.image} />
       <View style={styles.header}>
         <Text style={styles.title}>{character.name}</Text>
       </View>
       <View style={styles.body}>
         <TouchableOpacity style={styles.button} onPress={handleShowCharacters}>
-          <Text style={styles.buttonText}>Detayları Göster</Text>
+          <Text style={styles.buttonText}>Karakter Detaylarını Göster</Text>
         </TouchableOpacity>
       </View>
     </View>
