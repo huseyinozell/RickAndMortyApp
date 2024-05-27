@@ -3,17 +3,30 @@ import {View, Text, TouchableOpacity, StyleSheet, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import CircleImage from './circle-image';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {addFavorite, removeFavorite} from '../state/actions';
+import {useDispatch, useSelector} from 'react-redux';
 
 const CharacterCard = ({character}) => {
   const navigation = useNavigation();
-  const [favorite, setFavorite] = useState(false);
+  const dispatch = useDispatch();
+
+  const favorites = useSelector(state => state.favorites.favorites);
+
+  const isFavorite = character =>
+    favorites.some(favorite => favorite.id === character.id) || false;
+
+  const toggleFavorite = (character, event) => {
+    event.persist();
+    if (isFavorite(character)) {
+      dispatch(removeFavorite(character));
+    } else {
+      console.log('Favorilere Eklendi');
+      dispatch(addFavorite(character));
+    }
+  };
 
   const handleShowCharacters = () => {
     navigation.navigate('CharacterDetails', {data: character});
-  };
-
-  const toggleFavorite = () => {
-    setFavorite(!favorite);
   };
 
   return (
@@ -27,11 +40,13 @@ const CharacterCard = ({character}) => {
           <Text style={styles.buttonText}>Karakter Detaylarını Göster</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={toggleFavorite} style={styles.iconContainer}>
+        <TouchableOpacity
+          onPress={event => toggleFavorite(character, event)}
+          style={styles.iconContainer}>
           <Icon
             name="star"
             size={24}
-            color={favorite ? 'orange' : 'grey'}
+            color={isFavorite(character) ? 'orange' : 'grey'}
             style={styles.icon}
           />
         </TouchableOpacity>
