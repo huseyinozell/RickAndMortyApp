@@ -8,10 +8,10 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import {fetchEpisodes} from '../services/rickAndMortyService';
+import {fetchEpisodes} from '../../services/rickAndMortyService';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Import icon library
-import EpisodeCard from './episode-card';
+import EpisodeCard from '../episode-card';
 
 const MainScreen = () => {
   const [data, setData] = useState([]);

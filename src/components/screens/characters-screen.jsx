@@ -1,25 +1,21 @@
+// CharacterList.js
+
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {View, Text, StyleSheet} from 'react-native';
 
-const EpisodeCard = ({item}) => {
-  const navigation = useNavigation();
-
-  const handleShowCharacters = () => {
-    navigation.navigate('EpisodeCharacterList', {data: item});
-  };
+const CharacterList = ({route}) => {
+  const episodeData = route.params?.data;
 
   return (
-    <View style={styles.card}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.subtitle}>{item.air_date}</Text>
-      </View>
-      <View style={styles.body}>
-        <Text style={styles.episode}>{item.episode}</Text>
-        <TouchableOpacity style={styles.button} onPress={handleShowCharacters}>
-          <Text style={styles.buttonText}>Detayları Göster</Text>
-        </TouchableOpacity>
+    <View>
+      <View style={styles.card}>
+        <View style={styles.header}>
+          <Text style={styles.title}>{episodeData.name}</Text>
+          <Text style={styles.subtitle}>{episodeData.air_date}</Text>
+        </View>
+        <View style={styles.body}>
+          <Text style={styles.episode}>{episodeData.episode}</Text>
+        </View>
       </View>
     </View>
   );
@@ -73,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EpisodeCard;
+export default CharacterList;
