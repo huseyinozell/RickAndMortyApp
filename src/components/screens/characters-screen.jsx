@@ -1,32 +1,42 @@
-// CharacterList.js
-
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import PaginationComponent from '../pagination';
 
 const CharacterList = ({route}) => {
   const episodeData = route.params?.data;
 
-  return (
-    <View>
-      <View style={styles.card}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{episodeData.name}</Text>
-          <Text style={styles.subtitle}>{episodeData.air_date}</Text>
-        </View>
-        <View style={styles.body}>
-          <Text style={styles.episode}>{episodeData.episode}</Text>
+  const episodeInfo = () => {
+    return (
+      <View>
+        <View style={styles.card}>
+          <View style={styles.header}>
+            <Text style={styles.title}>{episodeData.name}</Text>
+            <Text style={styles.subtitle}>{episodeData.air_date}</Text>
+          </View>
+          <View style={styles.body}>
+            <Text style={styles.episode}>{episodeData.episode}</Text>
+          </View>
         </View>
       </View>
-    </View>
+    );
+  };
+
+  return (
+    <>
+      {episodeInfo()}
+      <PaginationComponent
+        url={'/character/'}
+        renderItem={({item}) => <Text>{item.name}</Text>}
+      />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
-    borderRadius: 10,
     padding: 20,
-    marginBottom: 20,
+    marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
