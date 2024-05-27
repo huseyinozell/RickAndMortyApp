@@ -11,17 +11,14 @@ import {
 import {fetchEpisodes} from '../services/rickAndMortyService';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Import icon library
+import EpisodeCard from './episode-card';
 
 const MainScreen = () => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const renderItem = ({item}) => (
-    <View style={styles.item}>
-      <Text>{item.name}</Text>
-    </View>
-  );
+  const renderItem = ({item}) => <EpisodeCard item={item} />;
 
   const loadEpisodes = async pageNumber => {
     setLoading(true);
@@ -29,7 +26,6 @@ const MainScreen = () => {
     const itemsPerPage = 5;
 
     const start = (pageNumber - 1) * itemsPerPage + 1;
-    const end = pageNumber * itemsPerPage;
     const episodeIds = Array.from(
       {length: itemsPerPage},
       (_, i) => i + start,
