@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {addFavorite, removeFavorite} from '../state/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
-const CharacterCard = ({character}) => {
+const CharacterCard = ({character, iconName = 'star'}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -18,10 +18,32 @@ const CharacterCard = ({character}) => {
   const toggleFavorite = (character, event) => {
     event.persist();
     if (isFavorite(character)) {
-      dispatch(removeFavorite(character));
+      Alert.alert(
+        'Favoriden Kaldır',
+        `${character.name} isimli karakteri favorilerden kaldırmak istediğinize emin misiniz?`,
+        [
+          {
+            text: 'Hayır',
+            style: 'cancel',
+          },
+          {
+            text: 'Evet',
+            onPress: () => dispatch(removeFavorite(character)),
+          },
+        ],
+        {cancelable: false},
+      );
     } else {
-      console.log('Favorilere Eklendi');
-      dispatch(addFavorite(character));
+      if (favorites.length >= 10) {
+        Alert.alert(
+          'Limit Aşıldı',
+          'En fazla 10 karakter favorilere eklenebilir.',
+          [{text: 'Tamam'}],
+          {cancelable: false},
+        );
+      } else {
+        dispatch(addFavorite(character));
+      }
     }
   };
 
@@ -44,9 +66,15 @@ const CharacterCard = ({character}) => {
           onPress={event => toggleFavorite(character, event)}
           style={styles.iconContainer}>
           <Icon
-            name="star"
+            name={iconName}
             size={24}
-            color={isFavorite(character) ? 'orange' : 'grey'}
+            color={
+              iconName == 'star'
+                ? isFavorite(character)
+                  ? 'orange'
+                  : 'grey'
+                : 'black'
+            }
             style={styles.icon}
           />
         </TouchableOpacity>
