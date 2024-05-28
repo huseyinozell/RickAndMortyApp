@@ -1,14 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import CircleImage from './circle-image';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {addFavorite, removeFavorite} from '../state/actions';
 import {useDispatch, useSelector} from 'react-redux';
+import {notificationManager} from '../notifications/NotificationManager';
 
 const CharacterCard = ({character, iconName = 'star'}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    notificationManager.configure();
+  }, []);
 
   const favorites = useSelector(state => state.favorites.favorites);
 
@@ -35,11 +40,9 @@ const CharacterCard = ({character, iconName = 'star'}) => {
       );
     } else {
       if (favorites.length >= 10) {
-        Alert.alert(
+        notificationManager.showNotification(
           'Limit Aşıldı',
-          'En fazla 10 karakter favorilere eklenebilir.',
-          [{text: 'Tamam'}],
-          {cancelable: false},
+          'Favori karakter ekleme sayısını aştınız. Başka bir karakteri favorilerden çıkarmalısınız.',
         );
       } else {
         dispatch(addFavorite(character));
