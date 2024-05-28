@@ -37,7 +37,7 @@ const MainTabNavigator = () => {
         component={FavoriteCharacterList}
         options={{
           tabBarIcon: ({color, size}) => (
-            <Icon name="basketball" color={color} size={size} />
+            <Icon name="star" color={color} size={size} />
           ),
         }}
       />
