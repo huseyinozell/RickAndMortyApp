@@ -1,4 +1,4 @@
-## Rick and Mort App
+## Rick and Morty App
 
 Projede Kullanılan Teknolojiler 
 
